@@ -2,19 +2,30 @@ namespace lab1;
 
 public abstract class Sweetness
 {
+    protected Sweetness(int weight, int sweetPercent, string companiName)
+    {
+        this.Weight = weight;
+        this.SweetPercent = sweetPercent;
+        this.CompaniName = companiName;
+    }
     public void Eat(int currWeight)
     {
-        this.weight -= currWeight;
+        this.Weight -= currWeight;
     }
     public void Present(int currWeight)
     {
-        this.weight -= currWeight;
+        this.Weight -= currWeight;
     }
     public void Buy(int currWeight)
     {
-        this.weight += currWeight;
+        this.Weight += currWeight;
     }
 
-    public float weight { get; private set; }
-    public int sweetPercent { get; set; }
+    public float Weight { get; protected set; }
+    public int SweetPercent { get; set; }
+    public string CompaniName
+    {
+        get => CompaniName;
+        protected set => CompaniName = string.IsNullOrWhiteSpace(value) ? "--" : value;
+    }
 }

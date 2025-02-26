@@ -2,7 +2,13 @@ namespace lab1;
 
 public class Chocolate : Sweetness
 {
-    public int[] size { get; protected set; } = new int[2];
     protected bool isBlack;
     protected bool isBubble;
+
+    public Chocolate(int weigth, int sweetPercent, string companiName = "", bool isBlack = false, bool isBubble = false)
+        : base(weigth, sweetPercent, companiName)
+    {
+        this.isBlack = isBlack;
+        this.isBubble = isBubble;
+    }
 }

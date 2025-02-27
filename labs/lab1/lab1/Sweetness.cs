@@ -2,8 +2,10 @@ namespace lab1;
 
 public abstract class Sweetness
 {
+    private static int count = 0;
     protected Sweetness(int weight, int sweetPercent, string companiName)
     {
+        count++;
         this.Weight = weight;
         this.SweetPercent = sweetPercent;
         this.CompaniName = companiName;
@@ -22,10 +24,26 @@ public abstract class Sweetness
     }
 
     public float Weight { get; protected set; }
-    public int SweetPercent { get; set; }
+    protected int sweetPercent;
+
+    public int SweetPercent
+    {
+        get
+        {
+            return sweetPercent;
+        }
+        set
+        {
+            sweetPercent = (value > 100 || value < 0) ? (value > 100 ? 100 : 0) : value;
+        }
+    }
+
+    protected string companiName;
     public string CompaniName
     {
-        get => CompaniName;
-        protected set => CompaniName = string.IsNullOrWhiteSpace(value) ? "--" : value;
+        get => companiName;
+        protected set => companiName = string.IsNullOrWhiteSpace(value) ? "--" : value;
     }
+    
+    public int Count { get => count; }
 }

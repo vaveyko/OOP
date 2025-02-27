@@ -2,10 +2,11 @@ namespace lab1;
 
 public class FillingChocolate : Chocolate
 {
+    private string filling;
     public string Filling
     {
-        get => Filling;
-        private set => Filling = string.IsNullOrWhiteSpace(value) ? "--" : value;
+        get => filling;
+        private set => filling = string.IsNullOrWhiteSpace(value) ? "--" : value;
     }
 
     public FillingChocolate(int weigth, int sweetPercent, string companiName = "", bool isBlack = false,

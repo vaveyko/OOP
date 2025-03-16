@@ -1,3 +1,9 @@
+using lab1.Sweetness.Chocolate.FillingChocolate;
+using lab1.Sweetness.Marmalad;
+using lab1.Sweetness.Chocolate;
+using lab1.Sweetness.Sweet.Candy;
+using lab1.Sweetness.Sweet.ChocolateCandy;
+
 namespace lab1;
 
 public partial class Form1 : Form
@@ -10,7 +16,7 @@ public partial class Form1 : Form
         {4, "images/guyLian.jpg"},
         {5, "images/tinki.jpg"},
     };
-    private void CreateElemCard(Sweetness sweet, int fileIndex)
+    private void CreateElemCard(Sweetness.Sweetness sweet, int fileIndex)
     {
         // Создание панели для изображения и подписи
         Panel panel = new Panel();
@@ -57,7 +63,7 @@ public partial class Form1 : Form
     {
         InitializeComponent();
 
-        Sweetness sweet = new Candy(100, 23, "Chupa-Chups");
+        Sweetness.Sweetness sweet = new Candy(100, 23, "Chupa-Chups");
         CreateElemCard(sweet, 1);
         sweet = new FillingChocolate(1045, 1233, "Bolci");
         CreateElemCard(sweet, 2);

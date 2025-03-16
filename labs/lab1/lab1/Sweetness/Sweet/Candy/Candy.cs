@@ -1,4 +1,4 @@
-namespace lab1;
+namespace lab1.Sweetness.Sweet.Candy;
 
 public class Candy : Sweet
 {

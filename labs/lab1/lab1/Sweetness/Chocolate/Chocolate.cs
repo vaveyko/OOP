@@ -11,4 +11,6 @@ public class Chocolate : Sweetness
         this.isBlack = isBlack;
         this.isBubble = isBubble;
     }
+
+    public override string photoType => "Chocolate";
 }

@@ -14,4 +14,6 @@ public class Candy : Sweet
     {
         this.Color = color;
     }
+
+    public override string photoType => "Candy";
 }

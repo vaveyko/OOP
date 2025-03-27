@@ -3,6 +3,7 @@ namespace lab1.Sweetness;
 public abstract class Sweetness
 {
     private static int count = 0;
+    public abstract string photoType { get; }
     protected Sweetness(int weight, int sweetPercent, string companiName)
     {
         count++;

@@ -22,4 +22,6 @@ public class Marmalade : Sweetness
         }
         
     }
+
+    public override string photoType => "Marmalade";
 }

@@ -8,15 +8,15 @@ namespace lab1;
 
 public partial class Form1 : Form
 {
-    Dictionary<int, string> fileNames = new Dictionary<int, string>()
+    Dictionary<string, string> fileNames = new Dictionary<string, string>()
     {
-        {1, "images/chupa-chups.jpg"},
-        {2, "images/bolci.jpg"},
-        {3, "images/alenka.jpg"},
-        {4, "images/guyLian.jpg"},
-        {5, "images/tinki.jpg"},
+        {"Candy", "images/chupa-chups.jpg"},
+        {"FillingChocolate", "images/bolci.jpg"},
+        {"Chocolate", "images/alenka.jpg"},
+        {"ChocolateCandy", "images/guyLian.jpg"},
+        {"Marmalade", "images/tinki.jpg"},
     };
-    private void CreateElemCard(Sweetness.Sweetness sweet, int fileIndex)
+    public void CreateElemCard(Sweetness.Sweetness sweet)
     {
         // Создание панели для изображения и подписи
         Panel panel = new Panel();
@@ -27,7 +27,7 @@ public partial class Form1 : Form
         PictureBox pictureBox = new PictureBox();
         pictureBox.Size = new Size(300, 300);
         pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
-        pictureBox.Image = Image.FromFile(fileNames[fileIndex]); // Путь к изображению
+        pictureBox.Image = Image.FromFile(fileNames[sweet.photoType]); // Путь к изображению
             
             
         // Создание Label1
@@ -62,16 +62,12 @@ public partial class Form1 : Form
     public Form1()
     {
         InitializeComponent();
+    }
 
-        Sweetness.Sweetness sweet = new Candy(100, 23, "Chupa-Chups");
-        CreateElemCard(sweet, 1);
-        sweet = new FillingChocolate(1045, 1233, "Bolci");
-        CreateElemCard(sweet, 2);
-        sweet = new Chocolate(230, 83, "Alenka");
-        CreateElemCard(sweet, 3);
-        sweet = new ChocolateCandy(400, 93, "GuyLian");
-        CreateElemCard(sweet, 4);
-        sweet = new Marmalade(120, 67, 12,"Tinki");
-        CreateElemCard(sweet, 5);
+    private void button1_Click(object sender, EventArgs e)
+    {
+        AddSweetnessForm form = new AddSweetnessForm();
+        form.Owner = this;
+        form.Show();
     }
 }

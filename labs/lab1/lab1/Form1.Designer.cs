@@ -31,6 +31,7 @@ partial class Form1
     {
         ElementPanel = new System.Windows.Forms.FlowLayoutPanel();
         CountLabel = new System.Windows.Forms.Label();
+        AddButton = new System.Windows.Forms.Button();
         SuspendLayout();
         // 
         // ElementPanel
@@ -52,16 +53,29 @@ partial class Form1
         CountLabel.Text = "0";
         CountLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
         // 
+        // AddButton
+        // 
+        AddButton.Location = new System.Drawing.Point(36, 500);
+        AddButton.Name = "AddButton";
+        AddButton.Size = new System.Drawing.Size(272, 86);
+        AddButton.TabIndex = 2;
+        AddButton.Text = "Добавить вкусность";
+        AddButton.UseVisualStyleBackColor = true;
+        AddButton.Click += button1_Click;
+        // 
         // Form1
         // 
         AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
         AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
         ClientSize = new System.Drawing.Size(923, 648);
+        Controls.Add(AddButton);
         Controls.Add(CountLabel);
         Controls.Add(ElementPanel);
         Text = "Some interesting stuff";
         ResumeLayout(false);
     }
+
+    private System.Windows.Forms.Button AddButton;
 
     private System.Windows.Forms.Label CountLabel;
 

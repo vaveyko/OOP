@@ -15,4 +15,9 @@ public class FillingChocolate : Chocolate
         this.Filling = filling;
     }
     public override string photoType => "FillingChocolate";
+    
+    public string toString()
+    {
+        return base.ToString() + $"filling: {this.Filling}";
+    }
 }

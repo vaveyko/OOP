@@ -16,4 +16,9 @@ public class Candy : Sweet
     }
 
     public override string photoType => "Candy";
+    
+    public string toString()
+    {
+        return base.ToString() + $"color: {this.Color}";
+    }
 }

@@ -19,8 +19,8 @@ public partial class Form1 : Form
     public void CreateElemCard(Sweetness.Sweetness sweet)
     {
         // Создание панели для изображения и подписи
-        Panel panel = new Panel();
-        panel.Size = new Size(300, 400);
+        FlowLayoutPanel panel = new FlowLayoutPanel();
+        panel.Size = new Size(300, 430);
         panel.BackColor = Color.FromArgb(230, 230, 230);
 
         // Создание PictureBox
@@ -28,32 +28,33 @@ public partial class Form1 : Form
         pictureBox.Size = new Size(300, 300);
         pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
         pictureBox.Image = Image.FromFile(fileNames[sweet.photoType]); // Путь к изображению
-            
-            
-        // Создание Label1
+        
         Label label1 = new Label();
-        label1.Text = "Compani: " + sweet.CompaniName;
+        label1.Text = sweet.photoType;
         label1.TextAlign = ContentAlignment.MiddleCenter;
-        label1.AutoSize = true;
-        label1.Location = new Point(10, 310); // Положение внутри панели
-        // Создание Label2
+        label1.Size = new Size(300, label1.Size.Height);
+        
         Label label2 = new Label();
-        label2.Text = "Weight: " + sweet.Weight.ToString() + " g.";
-        label2.TextAlign = ContentAlignment.MiddleCenter;
-        label2.AutoSize = true;
-        label2.Location = new Point(10, 340);
-        // Создание Label3
+        label2.Text = "Compani: " + sweet.CompaniName;
+        label2.TextAlign = ContentAlignment.MiddleLeft;
+        label2.Size = new Size(300, label2.Size.Height);
+        
         Label label3 = new Label();
-        label3.Text = "Sweetness: " + sweet.SweetPercent.ToString() + " %";
-        label3.TextAlign = ContentAlignment.MiddleCenter;
-        label3.AutoSize = true;
-        label3.Location = new Point(10, 370);
+        label3.Text = "Weight: " + sweet.Weight.ToString() + " g.";
+        label3.TextAlign = ContentAlignment.MiddleLeft;
+        label3.Size = new Size(300, label3.Size.Height);
+        
+        Label label4 = new Label();
+        label4.Text = "Sweetness: " + sweet.SweetPercent.ToString() + " %";
+        label4.TextAlign = ContentAlignment.MiddleLeft;
+        label4.Size = new Size(300, label4.Size.Height);
 
         // Добавление PictureBox и Label в панель
         panel.Controls.Add(pictureBox);
         panel.Controls.Add(label1);
         panel.Controls.Add(label2);
         panel.Controls.Add(label3);
+        panel.Controls.Add(label4);
 
         // Добавление панели в FlowLayoutPanel
         ElementPanel.Controls.Add(panel);

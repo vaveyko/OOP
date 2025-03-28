@@ -47,4 +47,9 @@ public abstract class Sweetness
     }
     
     public int Count { get => count; }
+
+    public string toString()
+    {
+        return $"weight: {this.Weight}, sweet percent: {this.SweetPercent}, compani: {this.CompaniName}";
+    }
 }

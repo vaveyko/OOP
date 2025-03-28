@@ -14,4 +14,8 @@ public abstract class Sweet : Sweetness
     {
         this.Taste = taste;
     }
+    public string toString()
+    {
+        return base.ToString() + $"taste: {this.taste}";
+    }
 }

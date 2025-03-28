@@ -13,4 +13,10 @@ public class Chocolate : Sweetness
     }
 
     public override string photoType => "Chocolate";
+
+    
+    public string toString()
+    {
+        return base.ToString() + $"isBlack: {this.isBlack}, isBubble: {this.isBubble}";
+    }
 }

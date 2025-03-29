@@ -10,7 +10,7 @@ public partial class AddSweetnessForm : Form
         FillComboBox();
     }
 
-    public void FillComboBox()
+    private void FillComboBox()
     {
             var assembly = Assembly.GetExecutingAssembly();
             var allTypes = assembly.GetTypes();
@@ -58,11 +58,22 @@ public partial class AddSweetnessForm : Form
         ParameterInfo[] fields = getAllFields(fabric.sweetnessType);
         foreach (ParameterInfo field in fields)
         {
-            TextBox textBox = new TextBox();
-            textBox.Font = new Font(textBox.Font.FontFamily, 12f);
-            textBox.PlaceholderText = field.Name;
-            textBox.Size = new Size(300, 300);
-            flowLayoutPanel1.Controls.Add(textBox);
+            if (field.ParameterType.Name == "Boolean")
+            {
+                CheckBox checkBox = new CheckBox();
+                checkBox.Font = new Font(checkBox.Font.FontFamily, 12f);
+                checkBox.Text = field.Name;
+                checkBox.Size = new Size(300, 30);
+                flowLayoutPanel1.Controls.Add(checkBox);
+            }
+            else
+            {
+                TextBox textBox = new TextBox();
+                textBox.Font = new Font(textBox.Font.FontFamily, 12f);
+                textBox.PlaceholderText = field.Name;
+                textBox.Size = new Size(300, 30);
+                flowLayoutPanel1.Controls.Add(textBox);
+            }
         }
     }
 
@@ -76,17 +87,26 @@ public partial class AddSweetnessForm : Form
         Object[] parameters = new Object[flowLayoutPanel1.Controls.Count];
         for (int i = 0; i < parameters.Length; i++)
         {
-            TextBox textBox = flowLayoutPanel1.Controls[i] as TextBox;
-            if (textBox.Text == "")
+            try
             {
-                return;
+                TextBox textBox = (TextBox)flowLayoutPanel1.Controls[i];
+                if (textBox.Text == "")
+                {
+                    return;
+                }
+                parameters[i] = textBox.Text;
             }
-            parameters[i] = textBox.Text;
+            catch (InvalidCastException exception)
+            {
+                CheckBox checkBox = (CheckBox)flowLayoutPanel1.Controls[i];
+                parameters[i] = checkBox.Checked.ToString();
+            }
+            
         }
         
         SweetnessFactory fabric = (SweetnessFactory) getInstanceByName(SweetnessComboBox.SelectedItem.ToString());
         Sweetness.Sweetness sweet = fabric.Create(parameters);
-        Form1 parentForm = this.Owner as Form1;
+        Form1 parentForm = Owner as Form1;
         parentForm.CreateElemCard(sweet);
         
         

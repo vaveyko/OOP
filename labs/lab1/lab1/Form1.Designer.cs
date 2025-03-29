@@ -39,7 +39,7 @@ partial class Form1
         ElementPanel.AutoScroll = true;
         ElementPanel.Location = new System.Drawing.Point(36, 48);
         ElementPanel.Name = "ElementPanel";
-        ElementPanel.Size = new System.Drawing.Size(853, 437);
+        ElementPanel.Size = new System.Drawing.Size(853, 565);
         ElementPanel.TabIndex = 0;
         ElementPanel.WrapContents = false;
         // 
@@ -55,7 +55,7 @@ partial class Form1
         // 
         // AddButton
         // 
-        AddButton.Location = new System.Drawing.Point(36, 500);
+        AddButton.Location = new System.Drawing.Point(36, 619);
         AddButton.Name = "AddButton";
         AddButton.Size = new System.Drawing.Size(272, 86);
         AddButton.TabIndex = 2;
@@ -67,7 +67,7 @@ partial class Form1
         // 
         AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
         AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-        ClientSize = new System.Drawing.Size(923, 648);
+        ClientSize = new System.Drawing.Size(929, 717);
         Controls.Add(AddButton);
         Controls.Add(CountLabel);
         Controls.Add(ElementPanel);

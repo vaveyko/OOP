@@ -1,3 +1,4 @@
+using System.Reflection;
 using lab1.Sweetness.Chocolate.FillingChocolate;
 using lab1.Sweetness.Marmalad;
 using lab1.Sweetness.Chocolate;
@@ -18,9 +19,10 @@ public partial class Form1 : Form
     };
     public void CreateElemCard(Sweetness.Sweetness sweet)
     {
+        Size lSize = new Size(300, 25);
         // Создание панели для изображения и подписи
         FlowLayoutPanel panel = new FlowLayoutPanel();
-        panel.Size = new Size(300, 430);
+        panel.Size = new Size(300, 500);
         panel.BackColor = Color.FromArgb(230, 230, 230);
 
         // Создание PictureBox
@@ -32,29 +34,31 @@ public partial class Form1 : Form
         Label label1 = new Label();
         label1.Text = sweet.photoType;
         label1.TextAlign = ContentAlignment.MiddleCenter;
-        label1.Size = new Size(300, label1.Size.Height);
+        label1.Size = lSize;
         
-        Label label2 = new Label();
-        label2.Text = "Compani: " + sweet.CompaniName;
-        label2.TextAlign = ContentAlignment.MiddleLeft;
-        label2.Size = new Size(300, label2.Size.Height);
-        
-        Label label3 = new Label();
-        label3.Text = "Weight: " + sweet.Weight.ToString() + " g.";
-        label3.TextAlign = ContentAlignment.MiddleLeft;
-        label3.Size = new Size(300, label3.Size.Height);
-        
-        Label label4 = new Label();
-        label4.Text = "Sweetness: " + sweet.SweetPercent.ToString() + " %";
-        label4.TextAlign = ContentAlignment.MiddleLeft;
-        label4.Size = new Size(300, label4.Size.Height);
-
-        // Добавление PictureBox и Label в панель
         panel.Controls.Add(pictureBox);
         panel.Controls.Add(label1);
-        panel.Controls.Add(label2);
-        panel.Controls.Add(label3);
-        panel.Controls.Add(label4);
+
+        Type sweetType = sweet.GetType();
+        var a = sweetType.GetProperties(BindingFlags.Public | BindingFlags.Instance);
+        foreach (PropertyInfo property in sweetType.GetProperties(BindingFlags.Public | BindingFlags.Instance))
+        {
+            if (property.Name != "Count" && property.Name != "photoType")
+            {
+                Label label = new Label();
+                if (property.PropertyType == typeof(bool))
+                {
+                    label.Text = (bool)property.GetValue(sweet) ? $"{property.Name}: yes" : $"{property.Name}: no";
+                }
+                else
+                {
+                    label.Text = $"{property.Name}: {property.GetValue(sweet)}";
+                }
+                label.TextAlign = ContentAlignment.MiddleLeft;
+                label.Size = lSize;
+                panel.Controls.Add(label);
+            }
+        }
 
         // Добавление панели в FlowLayoutPanel
         ElementPanel.Controls.Add(panel);

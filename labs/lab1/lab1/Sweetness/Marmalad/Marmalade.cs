@@ -25,7 +25,7 @@ public class Marmalade : Sweetness
 
     public override string photoType => "Marmalade";
     
-    public string toString()
+    public override string ToString()
     {
         return base.ToString() + $"sourPercent: {this.SourPercent}";
     }

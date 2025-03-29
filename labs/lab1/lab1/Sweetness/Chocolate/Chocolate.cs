@@ -2,8 +2,8 @@ namespace lab1.Sweetness.Chocolate;
 
 public class Chocolate : Sweetness
 {
-    protected bool isBlack;
-    protected bool isBubble;
+    public bool isBlack { get; private set; }
+    public bool isBubble { get; private set; }
 
     public Chocolate(int weigth, int sweetPercent, string companiName = "", bool isBlack = false, bool isBubble = false)
         : base(weigth, sweetPercent, companiName)
@@ -15,7 +15,7 @@ public class Chocolate : Sweetness
     public override string photoType => "Chocolate";
 
     
-    public string toString()
+    public override string ToString()
     {
         return base.ToString() + $"isBlack: {this.isBlack}, isBubble: {this.isBubble}";
     }

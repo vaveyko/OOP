@@ -13,7 +13,7 @@ public class ChocolateCandy : Sweet
 
     public override string photoType => "ChocolateCandy";
     
-    public string toString()
+    public override string ToString()
     {
         return base.ToString() + $"isChocolateDark: {this.isChocolateDark}";
     }

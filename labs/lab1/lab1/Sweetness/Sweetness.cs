@@ -12,10 +12,10 @@ public abstract class Sweetness
         this.CompaniName = companiName;
     }
 
-    public void Edit(params Object[] parameters)
+    public virtual void Edit(params Object[] parameters)
     {
-        this.Weight = (float)parameters[0];
-        this.SweetPercent = (int)parameters[1];
+        this.Weight = float.Parse((string)parameters[0]);
+        this.SweetPercent = int.Parse((string)parameters[1]);
         this.CompaniName = (string)parameters[2];
     }
     public void Eat(float currWeight)

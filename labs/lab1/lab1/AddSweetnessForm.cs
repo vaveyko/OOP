@@ -1,16 +1,51 @@
+using System.Windows.Forms.VisualStyles;
+
 namespace lab1;
 using System.Reflection;
 
 public partial class AddSweetnessForm : Form
 {
-    public AddSweetnessForm()
+    private bool isEditForm;
+    private Sweetness.Sweetness sweet;
+    public AddSweetnessForm(bool isEditForm=false, Sweetness.Sweetness sweet = null)
     {
         InitializeComponent();
-        
-        FillComboBox();
+        this.isEditForm = isEditForm;
+        this.sweet = sweet;
+        if (isEditForm)
+        {
+            createAllFieldsEdit(sweet.GetType());
+            var a = (sweet.GetType()).GetProperties(BindingFlags.Instance | BindingFlags.Public);
+            foreach (Object editLine in flowLayoutPanel1.Controls)
+            {
+                try
+                {
+                    TextBox text = (TextBox)editLine;
+                    Type type = sweet.GetType();
+                    PropertyInfo property = type.GetProperty(text.PlaceholderText, BindingFlags.IgnoreCase | BindingFlags.Instance | BindingFlags.Public);
+                    text.Text = property.GetValue(sweet, null).ToString();
+                } 
+                catch (InvalidCastException exception)
+                {
+                    CheckBox checkBox = (CheckBox)editLine;
+                    Type type = sweet.GetType();
+                    PropertyInfo property = type.GetProperty(checkBox.Text, BindingFlags.IgnoreCase | BindingFlags.Instance | BindingFlags.Public);
+                    checkBox.Checked = (bool)(property.GetValue(sweet, null));
+                }
+            }
+        }
+        else
+        {
+            ComboBox SweetnessComboBox = new ComboBox();
+            SweetnessComboBox.Size = new Size(flowLayoutPanel1.Size.Width, SweetnessComboBox.Size.Height);
+            SweetnessComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
+            FillComboBox(SweetnessComboBox);
+            SweetnessComboBox.SelectedIndexChanged += SweetnessComboBox_SelectedIndexChanged;
+            flowLayoutPanel1.Controls.Add(SweetnessComboBox);
+        }
     }
 
-    private void FillComboBox()
+    private void FillComboBox(ComboBox comboBox)
     {
             var assembly = Assembly.GetExecutingAssembly();
             var allTypes = assembly.GetTypes();
@@ -21,7 +56,7 @@ public partial class AddSweetnessForm : Form
             {
                 if (type != baseClassType && baseClassType.IsAssignableFrom(type))
                 {
-                    SweetnessComboBox.Items.Add(type.Name);
+                    comboBox.Items.Add(type.Name);
                 }
             }
     }
@@ -51,11 +86,9 @@ public partial class AddSweetnessForm : Form
         return null;
     }
 
-    private void SweetnessComboBox_SelectedIndexChanged(object sender, EventArgs e)
+    private void createAllFieldsEdit(Type type)
     {
-        flowLayoutPanel1.Controls.Clear();
-        SweetnessFactory fabric = (SweetnessFactory) getInstanceByName(SweetnessComboBox.SelectedItem.ToString());
-        ParameterInfo[] fields = getAllFields(fabric.sweetnessType);
+        ParameterInfo[] fields = getAllFields(type);
         foreach (ParameterInfo field in fields)
         {
             if (field.ParameterType.Name == "Boolean")
@@ -77,6 +110,23 @@ public partial class AddSweetnessForm : Form
         }
     }
 
+    private void SweetnessComboBox_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        if (isEditForm)
+        {
+            flowLayoutPanel1.Controls.Clear();
+        }
+        else
+        {
+            while (flowLayoutPanel1.Controls.Count > 1)
+            {
+                flowLayoutPanel1.Controls.RemoveAt(1);
+            }
+        }
+        SweetnessFactory fabric = (SweetnessFactory) getInstanceByName((sender as ComboBox).SelectedItem.ToString());
+        createAllFieldsEdit(fabric.sweetnessType);
+    }
+
     private void cancelButton_Click(object sender, EventArgs e)
     {
         Close();
@@ -84,12 +134,13 @@ public partial class AddSweetnessForm : Form
 
     private void okButton_Click(object sender, EventArgs e)
     {
-        Object[] parameters = new Object[flowLayoutPanel1.Controls.Count];
+        int start = isEditForm ? 0 : 1;
+        Object[] parameters = new Object[flowLayoutPanel1.Controls.Count - start];
         for (int i = 0; i < parameters.Length; i++)
         {
             try
             {
-                TextBox textBox = (TextBox)flowLayoutPanel1.Controls[i];
+                TextBox textBox = (TextBox)flowLayoutPanel1.Controls[i+start];
                 if (textBox.Text == "")
                 {
                     return;
@@ -98,17 +149,23 @@ public partial class AddSweetnessForm : Form
             }
             catch (InvalidCastException exception)
             {
-                CheckBox checkBox = (CheckBox)flowLayoutPanel1.Controls[i];
+                CheckBox checkBox = (CheckBox)flowLayoutPanel1.Controls[i+start];
                 parameters[i] = checkBox.Checked.ToString();
             }
             
         }
-        
-        SweetnessFactory fabric = (SweetnessFactory) getInstanceByName(SweetnessComboBox.SelectedItem.ToString());
-        Sweetness.Sweetness sweet = fabric.Create(parameters);
-        Form1 parentForm = Owner as Form1;
-        parentForm.CreateElemCard(sweet);
-        
+
+        if (isEditForm)
+        {
+            sweet.Edit(parameters);
+        }
+        else
+        {
+            SweetnessFactory fabric = (SweetnessFactory)getInstanceByName(((ComboBox)flowLayoutPanel1.Controls[0]).SelectedItem.ToString());
+            Sweetness.Sweetness sweet = fabric.Create(parameters);
+            Form1 parentForm = Owner as Form1;
+            parentForm.CreateElemCard(sweet);
+        }
         
         Close();
     }

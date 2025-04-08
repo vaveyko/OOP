@@ -9,7 +9,7 @@ public class Marmalade : Sweetness
     {
         this.SourPercent = sourPercent;
     }
-    public new void Edit(params Object[] parameters)
+    public override void Edit(params Object[] parameters)
     {
         base.Edit(parameters);
         this.CompaniName = (string)parameters[3]; ;

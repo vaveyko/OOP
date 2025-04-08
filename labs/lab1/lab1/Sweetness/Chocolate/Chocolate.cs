@@ -11,11 +11,11 @@ public class Chocolate : Sweetness
         this.IsBlack = isBlack;
         this.IsBubble = isBubble;
     }
-    public new void Edit(params Object[] parameters)
+    public override void Edit(params Object[] parameters)
     {
         base.Edit(parameters);
-        this.IsBlack = (bool)parameters[3];
-        this.IsBubble = (bool)parameters[4];
+        this.IsBlack = bool.Parse((string)parameters[3]);
+        this.IsBubble = bool.Parse((string)parameters[4]);
     }
 
     public override string photoType => "Chocolate";

@@ -14,7 +14,7 @@ public class Candy : Sweet
     {
         this.Color = color;
     }
-    public new void Edit(params Object[] parameters)
+    public override void Edit(params Object[] parameters)
     {
         base.Edit(parameters);
         this.Color = (string)parameters[4]; ;

@@ -15,7 +15,7 @@ public abstract class Sweet : Sweetness
         this.Taste = taste;
     }
 
-    protected new void Edit(params object[] parameters)
+    public override void Edit(params object[] parameters)
     {
         base.Edit(parameters);
         this.Taste = (string)parameters[3];

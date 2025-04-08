@@ -14,7 +14,7 @@ public class FillingChocolate : Chocolate
     {
         this.Filling = filling;
     }
-    public new void Edit(params Object[] parameters)
+    public override void Edit(params Object[] parameters)
     {
         base.Edit(parameters);
         this.Filling = (string)parameters[5];

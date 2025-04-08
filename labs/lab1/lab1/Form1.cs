@@ -9,6 +9,7 @@ namespace lab1;
 
 public partial class Form1 : Form
 {
+    private Sweetness.Sweetness s;
     Dictionary<string, string> fileNames = new Dictionary<string, string>()
     {
         {"Candy", "images/chupa-chups.jpg"},
@@ -19,6 +20,9 @@ public partial class Form1 : Form
     };
     public void CreateElemCard(Sweetness.Sweetness sweet)
     {
+        s = sweet;
+        
+        
         Size lSize = new Size(300, 25);
         // Создание панели для изображения и подписи
         FlowLayoutPanel panel = new FlowLayoutPanel();
@@ -30,6 +34,7 @@ public partial class Form1 : Form
         pictureBox.Size = new Size(300, 300);
         pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
         pictureBox.Image = Image.FromFile(fileNames[sweet.photoType]); // Путь к изображению
+        pictureBox.DoubleClick += PanelOnDoubleClick;
         
         Label label1 = new Label();
         label1.Text = sweet.photoType;
@@ -61,14 +66,24 @@ public partial class Form1 : Form
         }
 
         // Добавление панели в FlowLayoutPanel
+        panel.DoubleClick += PanelOnDoubleClick;
         ElementPanel.Controls.Add(panel);
         CountLabel.Text = sweet.Count.ToString();
     }
+
+    private void PanelOnDoubleClick(object? sender, EventArgs e)
+    {
+        AddSweetnessForm form = new AddSweetnessForm(true, s);
+        form.Owner = this;
+        form.Show();
+    }
+
     public Form1()
     {
         InitializeComponent();
     }
 
+    
     private void button1_Click(object sender, EventArgs e)
     {
         AddSweetnessForm form = new AddSweetnessForm();

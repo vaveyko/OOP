@@ -2,14 +2,20 @@ namespace lab1.Sweetness.Chocolate;
 
 public class Chocolate : Sweetness
 {
-    public bool isBlack { get; private set; }
-    public bool isBubble { get; private set; }
+    public bool IsBlack { get; private set; }
+    public bool IsBubble { get; private set; }
 
-    public Chocolate(int weigth, int sweetPercent, string companiName = "", bool isBlack = false, bool isBubble = false)
-        : base(weigth, sweetPercent, companiName)
+    public Chocolate(int weight, int sweetPercent, string companiName = "", bool isBlack = false, bool isBubble = false)
+        : base(weight, sweetPercent, companiName)
     {
-        this.isBlack = isBlack;
-        this.isBubble = isBubble;
+        this.IsBlack = isBlack;
+        this.IsBubble = isBubble;
+    }
+    public new void Edit(params Object[] parameters)
+    {
+        base.Edit(parameters);
+        this.IsBlack = (bool)parameters[3];
+        this.IsBubble = (bool)parameters[4];
     }
 
     public override string photoType => "Chocolate";
@@ -17,6 +23,6 @@ public class Chocolate : Sweetness
     
     public override string ToString()
     {
-        return base.ToString() + $"isBlack: {this.isBlack}, isBubble: {this.isBubble}";
+        return base.ToString() + $"isBlack: {this.IsBlack}, isBubble: {this.IsBubble}";
     }
 }

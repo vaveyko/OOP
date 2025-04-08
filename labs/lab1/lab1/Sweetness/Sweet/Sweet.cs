@@ -9,10 +9,16 @@ public abstract class Sweet : Sweetness
         protected set => taste = string.IsNullOrWhiteSpace(value) ? "--" : value;
     }
 
-    protected Sweet(int weigth, int sweetPercent, string companiName = "", string taste="")
-        : base(weigth, sweetPercent, companiName)
+    protected Sweet(float weight, int sweetPercent, string companiName = "", string taste="")
+        : base(weight, sweetPercent, companiName)
     {
         this.Taste = taste;
+    }
+
+    protected new void Edit(params object[] parameters)
+    {
+        base.Edit(parameters);
+        this.Taste = (string)parameters[3];
     }
     public override string ToString()
     {

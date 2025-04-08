@@ -4,10 +4,15 @@ public class Marmalade : Sweetness
 {
     private int sourPercent;
 
-    public Marmalade(int weigth, int sweetPercent, int sourPercent, string companiName="")
-        : base(weigth, sweetPercent, companiName)
+    public Marmalade(int weight, int sweetPercent, int sourPercent, string companiName="")
+        : base(weight, sweetPercent, companiName)
     {
         this.SourPercent = sourPercent;
+    }
+    public new void Edit(params Object[] parameters)
+    {
+        base.Edit(parameters);
+        this.CompaniName = (string)parameters[3]; ;
     }
     
     public int SourPercent

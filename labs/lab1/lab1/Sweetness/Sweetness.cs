@@ -4,22 +4,29 @@ public abstract class Sweetness
 {
     private static int count = 0;
     public abstract string photoType { get; }
-    protected Sweetness(int weight, int sweetPercent, string companiName)
+    protected Sweetness(float weight, int sweetPercent, string companiName)
     {
         count++;
         this.Weight = weight;
         this.SweetPercent = sweetPercent;
         this.CompaniName = companiName;
     }
-    public void Eat(int currWeight)
+
+    public void Edit(params Object[] parameters)
+    {
+        this.Weight = (float)parameters[0];
+        this.SweetPercent = (int)parameters[1];
+        this.CompaniName = (string)parameters[2];
+    }
+    public void Eat(float currWeight)
     {
         this.Weight -= currWeight;
     }
-    public void Present(int currWeight)
+    public void Present(float currWeight)
     {
         this.Weight -= currWeight;
     }
-    public void Buy(int currWeight)
+    public void Buy(float currWeight)
     {
         this.Weight += currWeight;
     }

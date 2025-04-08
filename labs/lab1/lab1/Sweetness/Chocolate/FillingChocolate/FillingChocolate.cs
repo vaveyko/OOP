@@ -9,10 +9,15 @@ public class FillingChocolate : Chocolate
         private set => filling = string.IsNullOrWhiteSpace(value) ? "--" : value;
     }
 
-    public FillingChocolate(int weigth, int sweetPercent, string companiName = "", bool isBlack = false,
-        bool isBubble = false, string filling="") : base(weigth, sweetPercent, companiName, isBlack, isBubble)
+    public FillingChocolate(int weight, int sweetPercent, string companiName = "", bool isBlack = false,
+        bool isBubble = false, string filling="") : base(weight, sweetPercent, companiName, isBlack, isBubble)
     {
         this.Filling = filling;
+    }
+    public new void Edit(params Object[] parameters)
+    {
+        base.Edit(parameters);
+        this.Filling = (string)parameters[5];
     }
     public override string photoType => "FillingChocolate";
     
